@@ -1,5 +1,6 @@
 const express = require("express"),
   app = express(),
+  methodOverride = require("method-override"),
   BP = require("body-parser"),
   mongoose = require("mongoose");
 
@@ -7,6 +8,7 @@ mongoose.connect("mongodb://localhost/my_blog");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(BP.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 let blogSchema = new mongoose.Schema({
   title: String,
@@ -39,6 +41,43 @@ app.post("/blogs", (req, res) => {
     res.redirect("/blogs");
   });
 });
+
+app.get("/blogs/:id", (req, res) => {
+  Blog.findById(req.params.id, (err, data) => {
+    if (err) {
+      res.redirect("/blogs");
+    }
+    res.render("show", { blog: data });
+  });
+});
+
+app.get("/blogs/:id/edit", (req, res) => {
+  Blog.findById(req.params.id, (err, data) => {
+    if (err) {
+      res.redirect("/");
+    }
+    res.render("edit", { blog: data });
+  });
+});
+
+app.put("/blogs/:id", (req, res) => {
+  Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, data) => {
+    if (err) {
+      res.redirect("/");
+    }
+    res.redirect("/blogs/" + req.params.id);
+  });
+});
+
+app.delete("/blogs/:id", (req, res) => {
+  Blog.findByIdAndRemove(req.params.id, err => {
+    if (err) {
+      res.redirect("/blogs");
+    }
+    res.redirect("/blogs");
+  });
+});
+
 app.listen(3030, () => {
   console.log("Listening at port 3030");
 });

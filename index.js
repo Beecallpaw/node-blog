@@ -19,6 +19,7 @@ let Blog = mongoose.model("Blog", blogSchema);
 app.get("/", (req, res) => {
   res.redirect("/blogs");
 });
+
 app.get("/blogs", (req, res) => {
   Blog.find({}, (err, blogs) => {
     if (err) console.log(`Error: ${err}`);
@@ -26,6 +27,18 @@ app.get("/blogs", (req, res) => {
   });
 });
 
+app.get("/blogs/new", (req, res) => {
+  res.render("new");
+});
+
+app.post("/blogs", (req, res) => {
+  Blog.create(req.body.blog, (err, fn) => {
+    if (err) {
+      res.render("new");
+    }
+    res.redirect("/blogs");
+  });
+});
 app.listen(3030, () => {
   console.log("Listening at port 3030");
 });

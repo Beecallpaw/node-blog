@@ -1,14 +1,26 @@
 <% include ./partials/header %>
-<% blogs.forEach(blog=>{ %>
-    <div class='blog'>
-        <h1>
-            <%= blog.title%>
-        </h1>
-        <img src= <%=blog.image %> width="250px" height="250px" alt="bird">
-        <p>
-            <%= blog.body.substring(0,50)%>...
-        </p>
-        <a href='/blogs/<%= blog._id%>'>More</a>
-    </div>
+<div id ='content' class='ui main container'>
+ <div class='ui centered header huge'>Read Blog Posts</div>
+        <div class='ui items'>
+    <% blogs.forEach(blog=>{ %>
+            <div id='block' class='item ui segment'>
+                <div class='ui large image'>
+                    <img src='<%=blog.image %>'>
+                </div>
+                <div class='middle aligned content'>
+                    <div class='header ui huge'><%= blog.title%></div>
+                    <div class='meta'>
+                        <span> <em><%= blog.createdDate.toDateString()%></em></span>
+                    </div>
+                    <div class='description'>
+                        <h4> <%= blog.body.substring(0,100)%>...</h4>
+                    </div>
+                    <div class='extra'>
+                        <a class='ui floated blue button' href='/blogs/<%= blog._id%>'>More</a>
+                    </div>
+                </div>
+            </div>
     <% })%>
+        </div>
+ </div>
 <% include ./partials/footer %>

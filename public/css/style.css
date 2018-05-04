@@ -4,12 +4,13 @@ i.icon {
 .container.main {
   margin-top: 5em;
 }
-.blog {
-  margin-top: 3.2em;
-}
 a > div {
   color: whitesmoke;
 }
 #inline {
   display: inline;
+}
+#content {
+  padding-left: 180px;
+  padding-bottom: 50px;
 }

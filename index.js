@@ -3,7 +3,8 @@ const express = require("express"),
   sanitizer = require("express-sanitizer"),
   methodOverride = require("method-override"),
   BP = require("body-parser"),
-  mongoose = require("mongoose");
+  mongoose = require("mongoose"),
+  port = process.env.PORT || 3000;
 
 mongoose.connect("mongodb://admin:admin123@ds137913.mlab.com:37913/my_blog");
 app.set("view engine", "ejs");
@@ -82,6 +83,6 @@ app.delete("/blogs/:id", (req, res) => {
   });
 });
 
-app.listen(3030, () => {
-  console.log("Listening at port 3030");
+app.listen(port, () => {
+  console.log(`Listening at port ${port}`);
 });

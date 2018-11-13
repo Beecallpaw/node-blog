@@ -5,7 +5,7 @@ const express = require("express"),
   BP = require("body-parser"),
   mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost/my_blog");
+mongoose.connect("mongodb://admin:admin123@ds137913.mlab.com:37913/my_blog");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(BP.urlencoded({ extended: true }));
